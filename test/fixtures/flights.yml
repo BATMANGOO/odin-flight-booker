@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  origin_id: 1
+  destination_id: 1
+  departure_date: 2021-10-26
+  departure_time: 2021-10-26 21:37:15
+
+two:
+  origin_id: 1
+  destination_id: 1
+  departure_date: 2021-10-26
+  departure_time: 2021-10-26 21:37:15
