@@ -1,0 +1,13 @@
+<h1>Flight Picker</h1>
+
+<%= form_with(url: "/flights", method: :get) do |f|%>
+  <%= f.label(:origin_id, "From:") %>
+  <%= f.select(:origin_id, @airport_options) %></br>
+  <%= f.label(:destination_id, "To:") %>  
+  <%= f.select(:destination_id, @airport_options) %></br>
+  <%= f.label("Passengers:") %>
+  <%= f.select(:num_tickets, [1, 2, 3, 4], required: true ) %></br>
+  <%= f.date_field :departure_date, required: true, placeholder: "dd/mm/yyyy" %></br>
+
+  <%= f.submit "Find Flights" %>
+<% end %>
