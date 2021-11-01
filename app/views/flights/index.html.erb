@@ -10,13 +10,17 @@
   <%= f.date_field :departure_date, required: true, placeholder: "dd/mm/yyyy" %></br>
 
   <%= f.submit "Find Flights" %>
-<% end %>
+<% end %></br>
 
-<% if @flights.any? %>
-  <% @flights.each do |flight| %>
-    <%= "From: " + @airports.find(flight.origin_id).name %></br>
-    <%= "To: " + @airports.find(flight.destination_id).name%></br>
-    <%= "Departure Date: " + flight.departure_date.strftime("%m/%d/%Y") %></br>
-    <%= "Departure Time: " + flight.departure_time.strftime("%l:%M %p")%></br></br>
+<% unless @flights.empty? %>
+  <%= form_with url: "/bookings/new/", method: :get, local: true do |f|%>
+    <%= f.hidden_field :num_tickets, :value => params[:num_tickets] %>
+    <% @flights.each do |flight| %>
+      <%= f.radio_button :booking_option, flight.id %>
+      <%= f.label("booking_option_" + flight.id.to_s, "From #{@airports.find(flight.origin_id).code} To #{@airports.find(flight.destination_id).code} on #{flight.departure_date} #{flight.departure_time.strftime("%l:%M %p")} ") %></br>
+    <% end %>
+    <%= f.submit "Book Flight" %>
   <% end %>
+<% else %>
+  <%= "No flights found" %>
 <% end %>
