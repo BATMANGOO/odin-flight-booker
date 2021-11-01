@@ -13,4 +13,5 @@ class FlightsController < ApplicationController
   def flight_params
     params.permit(:origin_id, :destination_id, :departure_date, :departure_time)
   end
+
 end

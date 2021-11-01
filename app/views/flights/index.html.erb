@@ -11,3 +11,12 @@
 
   <%= f.submit "Find Flights" %>
 <% end %>
+
+<% if @flights.any? %>
+  <% @flights.each do |flight| %>
+    <%= "From: " + @airports.find(flight.origin_id).name %></br>
+    <%= "To: " + @airports.find(flight.destination_id).name%></br>
+    <%= "Departure Date: " + flight.departure_date.strftime("%m/%d/%Y") %></br>
+    <%= "Departure Time: " + flight.departure_time.strftime("%l:%M %p")%></br></br>
+  <% end %>
+<% end %>
