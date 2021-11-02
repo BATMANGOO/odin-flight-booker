@@ -12,7 +12,7 @@
   <%= f.submit "Find Flights" %>
 <% end %></br>
 
-<% unless @flights.empty? %>
+<% if @booking_options %>
   <%= form_with url: "/bookings/new/", method: :get, local: true do |f|%>
     <%= f.hidden_field :num_tickets, :value => params[:num_tickets] %>
     <% @flights.each do |flight| %>
