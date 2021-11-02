@@ -3,5 +3,5 @@ class Flight < ApplicationRecord
   belongs_to :to_airport, class_name: 'Airport', foreign_key: 'destination_id', inverse_of: :departing_flights
 
   has_many :bookings, dependent: :destroy
-  has_many :passengers, through: :bookings
+  has_many :passengers, through: :bookings, foreign_key: 'passenger_id'
 end

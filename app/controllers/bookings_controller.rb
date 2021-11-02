@@ -6,11 +6,12 @@ class BookingsController < ApplicationController
     passenger_count.times { @booking.passengers.build }
   end
 
-  def create
-    @booking = Booking.new(booking_params)
-    @flights = Flight.find(params[:booking][:booking_option])
-    @booking.flight_id = @flights
-
+  # Fix create
+  def create 
+    flight_choice = params[:booking][:booking_option]
+    passenger_id = Passenger.find_by(email: params[:booking][:passengers_attributes][][:email]).id
+    @booking = Booking.new(flight_id: flight_choice, passenger_id: passenger_id)
+    
     if @booking.save
       flash[:notice] = 'Booking was successfully created.'
       redirect_to @booking
@@ -19,9 +20,22 @@ class BookingsController < ApplicationController
     end
   end
 
+  def show
+    @booking = Booking.find_by(id: params[:id])
+    return if @booking
+
+    flash[:alert] = "Sorry, this booking does not exist."
+    redirect_to root_url
+  end
+
   private
 
-  def booking_params
+  def find_flights(booking_option)
+    flight_numbers = booking_option.split
+    flight_numbers.collect { |num| Flight.find_by(id: num) }
+  end
+
+  def passenger_params
     params.require(:booking).permit(passengers_attributes: [:name, :email])
   end
 end
