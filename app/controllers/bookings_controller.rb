@@ -7,16 +7,15 @@ class BookingsController < ApplicationController
   end
 
   # Fix create
-  def create 
-    flight_choice = params[:booking][:booking_option]
-    passenger_id = Passenger.find_by(email: params[:booking][:passengers_attributes][][:email]).id
-    @booking = Booking.new(flight_id: flight_choice, passenger_id: passenger_id)
-    
+  def create
+    @booking = Booking.new(passenger_params)
+
     if @booking.save
-      flash[:notice] = 'Booking was successfully created.'
+      flash[:notice] = "Booking created successfully."
       redirect_to @booking
     else
-      render 'new'
+      flash[:alert] = "Sorry, there was a problem creating your booking."
+      render :new
     end
   end
 
@@ -36,6 +35,6 @@ class BookingsController < ApplicationController
   end
 
   def passenger_params
-    params.require(:booking).permit(passengers_attributes: [:name, :email])
+    params.require(:booking).permit(:flight_id, passengers_attributes: [:id, :name, :email])
   end
 end
