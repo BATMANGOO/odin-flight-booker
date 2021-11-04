@@ -21,3 +21,9 @@ module BookingsHelper
     end
   end
 end
+
+def passenger_info
+  @passenger_info = @booking.passengers.collect do |passenger|
+    [passenger.name, passenger.email]
+  end
+end
