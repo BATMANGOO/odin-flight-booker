@@ -1,0 +1,16 @@
+Thank You for booking your flight!
+
+=============================================================
+
+view your booking: <%= @url %>
+
+From: <%=Airport.find(Flight.find(@booking.flight_id).origin_id).name%>
+To: <%=Airport.find(Flight.find(@booking.flight_id).destination_id).name%>
+Departure Date: <%=Flight.find(@booking.flight_id).departure_date%>
+Departure Time: <%=Flight.find(@booking.flight_id).departure_time.strftime("%l:%m %p")%>
+Tickets: <%= @booking.passengers.count.to_s %>
+
+Passengers:
+<% @booking.passengers.each do |passenger| %>
+  <%= passenger.name %>
+<% end %>

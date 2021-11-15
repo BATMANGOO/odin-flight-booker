@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank You for booking your flight!</h1>
+    <%= link_to 'Flight info', @url %>
+
+    <p>Your Flight Information:</p>
+    <p><%="From: " + Airport.find(Flight.find(@booking.flight_id).origin_id).name%></p>
+    <p><%="To: " + Airport.find(Flight.find(@booking.flight_id).destination_id).name%></p>
+    <p><%= "Departure Date: #{Flight.find(@booking.flight_id).departure_date}"%></p>
+    <p><%= "Departure Time: #{Flight.find(@booking.flight_id).departure_time.strftime("%l:%m %p")}"%></p>
+    <p><%= "Tickets: " + @booking.passengers.count.to_s %></p>
+
+    <p>Passengers:</p>
+    <ul>
+      <% @booking.passengers.each do |passenger| %>
+        <%= passenger.name %></br>
+      <% end %>
+    </ul>
+  </body>
+</html>

@@ -3,7 +3,6 @@
   <%= f.hidden_field :num_tickets, :value => params[:num_tickets] %>
   <%= f.fields_for :passengers do |passenger_form| %>
     <%= passenger_form.hidden_field :id, value: nil %>
-
     <%= passenger_form.label :name %>
     <%= passenger_form.text_field :name, required: true, placeholder: 'name here' %></br>
     <%= passenger_form.label :email %>
