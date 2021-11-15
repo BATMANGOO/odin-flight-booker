@@ -12,7 +12,7 @@ class BookingsController < ApplicationController
 
     if @booking.save
       flash[:notice] = "Booking created successfully."
-      PassengerMailer.with(booking_id: @booking.id).confirmation_email.deliver_now
+      PassengerMailer.confirmation_email(@booking).deliver_now
       redirect_to @booking
     else
       flash[:alert] = "Sorry, there was a problem creating your booking."
